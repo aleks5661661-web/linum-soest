@@ -607,12 +607,13 @@
       .contact-form { padding: 24px; }
     }
   </style>
+<base target="_blank">
 </head>
 <body>
 
   <nav class="nav">
     <div class="nav-logo">
-      <img src="logo.png" alt="LINUM SOEST">
+      <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=200&h=52&fit=crop" alt="LINUM SOEST">
     </div>
     <div class="nav-links">
       <a href="#about">Über die Methode</a>
@@ -628,7 +629,7 @@
       <div class="hero-badge">Brasilianische Lymphdrainage-Massage</div>
       <h1>Befreien Sie sich von Schwellungen, Cellulite und Müdigkeit in nur&nbsp;1&nbsp;Sitzung</h1>
       <p>Einzigartige brasilianische Technik der tiefen Lymphdrainage. Ohne Injektionen, ohne Chemie – nur natürliche Wiederherstellung Ihres Körpers.</p>
-      <a href="#pricing" class="btn" data-track="hero-cta">Massage terminieren</a>
+      <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn" data-track="hero-cta" target="_blank">Massage terminieren</a>
     </div>
     <div class="hero-image animate delay-2">
       <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop" alt="Brasilianische Lymphdrainage-Massage">
@@ -716,7 +717,7 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <a href="#pricing" class="btn" data-track="solution-cta">Massage terminieren</a>
+        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn" data-track="solution-cta" target="_blank">Massage terminieren</a>
       </div>
     </div>
   </section>
@@ -735,7 +736,7 @@
             <li>Therapeutenberatung</li>
             <li>Ernährungsempfehlungen</li>
           </ul>
-          <button class="btn btn-block" data-track="pricing-1" onclick="scrollToForm('1')">Massage terminieren</button>
+          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block" data-track="pricing-1" target="_blank">Massage terminieren</a>
         </div>
         <div class="pricing-card popular animate delay-2">
           <div class="popular-badge">Am beliebtesten</div>
@@ -749,7 +750,7 @@
             <li>Persönlicher Drainageplan</li>
             <li>Rabatt auf die 3. Sitzung</li>
           </ul>
-          <button class="btn btn-block btn-lg" data-track="pricing-2" onclick="scrollToForm('2')">Massage terminieren</button>
+          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block btn-lg" data-track="pricing-2" target="_blank">Massage terminieren</a>
         </div>
         <div class="pricing-card animate delay-3">
           <h3>Komplette Verwandlung</h3>
@@ -763,7 +764,7 @@
             <li>Festigende Pflege</li>
             <li>24/7 Betreuung</li>
           </ul>
-          <button class="btn btn-block" data-track="pricing-3" onclick="scrollToForm('3')">Massage terminieren</button>
+          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block" data-track="pricing-3" target="_blank">Massage terminieren</a>
         </div>
       </div>
     </div>
@@ -790,7 +791,7 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <a href="#contact" class="btn" data-track="bonuses-cta">Boni sichern & terminieren</a>
+        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn" data-track="bonuses-cta" target="_blank">Boni sichern & terminieren</a>
       </div>
     </div>
   </section>
@@ -921,23 +922,20 @@
     <div class="container" style="max-width: 600px;">
       <h2 class="animate">Bereit, Leichtigkeit zu spüren?</h2>
       <p class="animate delay-1">Buchen Sie jetzt Ihre brasilianische Lymphdrainage</p>
-      <form class="contact-form animate delay-2" onsubmit="event.preventDefault(); alert('Vielen Dank! Wir werden uns in Kürze mit Ihnen in Verbindung setzen.');">
+      <div class="contact-form animate delay-2">
         <div class="form-group">
-          <input type="text" placeholder="Ihr Name" required>
-          <input type="tel" placeholder="Telefon / WhatsApp" required>
-          <select id="packageSelect">
-            <option value="" disabled selected>Paket wählen</option>
-            <option value="1">1 Sitzung – 89 €</option>
-            <option value="2">2 Sitzungen – 160 €</option>
-            <option value="3">3 Sitzungen – 234 €</option>
+          <input type="text" placeholder="Ihr Name" readonly>
+          <input type="tel" placeholder="Telefon / WhatsApp" readonly>
+          <select disabled>
+            <option>Paket wählen</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-block btn-lg pulse-btn" data-track="final-cta">Massage terminieren</button>
-      </form>
+        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block btn-lg pulse-btn" data-track="final-cta" target="_blank">Massage terminieren</a>
+      </div>
       <div class="contacts animate delay-3">
-        <span>📞 +49 123 456 789</span>
-        <span>💬 WhatsApp</span>
-        <span>📍 Berlin, Deutschland</span>
+        <span>✉️ info@linum-soest.de</span>
+        <span>📞 +49 (0)160 - 175 10 61</span>
+        <span>📍 Werkstr. 8, 59494 Soest</span>
       </div>
     </div>
   </section>
@@ -957,10 +955,6 @@
         answer.classList.add('open');
         arrow.style.transform = 'rotate(180deg)';
       }
-    }
-    function scrollToForm(pkg) {
-      document.getElementById('packageSelect').value = pkg;
-      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     }
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
