@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LINUM SOEST — Brasilianische Lymphdrainage-Massage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #E5E5EA;
+      --bg-dark: #D8D8DE;
+      --bg-card: #FFFFFF;
+      --accent: #9B59B6;
+      --accent-dark: #8E44AD;
+      --accent-light: #E8D5F2;
+      --text: #2C3E50;
+      --text-muted: #5a6a7a;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
+      --shadow-accent: 0 8px 32px rgba(155,89,182,0.35);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(229,229,234,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(155,89,182,0.15);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+      border-radius: 2px;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--accent);
+    }
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: var(--white);
+      border: none;
+      padding: 16px 36px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-accent);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(155,89,182,0.5);
+    }
+    .btn-block { width: 100%; }
+    .btn-lg { padding: 18px 40px; font-size: 17px; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(155,89,182,0.4); }
+      50% { transform: scale(1.03); box-shadow: 0 12px 40px rgba(155,89,182,0.6); }
+    }
+    .animate {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .pulse-btn { animation: pulse 2s infinite; }
+    .hero {
+      padding: 140px 24px 100px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-light), #D8C4E0);
+      color: var(--accent-dark);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 320px; height: 320px;
+      background: linear-gradient(135deg, rgba(155,89,182,0.18), rgba(142,68,173,0.08));
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+    }
+    .hero-image img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+      object-fit: cover;
+      height: 450px;
+    }
+    .section { padding: 100px 24px; }
+    .section-alt { background: var(--bg-dark); }
+    .section-gradient {
+      background: linear-gradient(180deg, var(--bg) 0%, #D8D0E0 100%);
+    }
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 60px;
+      font-size: 17px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--bg-card);
+      padding: 36px 28px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.35s ease;
+      border: 1px solid transparent;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-light);
+    }
+    .card-icon {
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .agitate-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .agitate-item {
+      padding: 22px 26px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      transition: all 0.3s;
+    }
+    .agitate-item:hover {
+      transform: translateX(6px);
+      box-shadow: var(--shadow-hover);
+    }
+    .agitate-item strong {
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .agitate-item p {
+      margin: 6px 0 0;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .agitate-image {
+      position: relative;
+    }
+    .agitate-image::before {
+      content: '';
+      position: absolute;
+      inset: -15px;
+      background: linear-gradient(135deg, rgba(155,89,182,0.22), rgba(142,68,173,0.1));
+      border-radius: 28px;
+      filter: blur(25px);
+    }
+    .agitate-image img {
+      position: relative;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+    .solution-card {
+      background: var(--bg-card);
+      padding: 40px 32px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(155,89,182,0.12);
+      text-align: center;
+      transition: all 0.35s ease;
+    }
+    .solution-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(155,89,182,0.22);
+    }
+    .solution-icon {
+      width: 68px; height: 68px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--white);
+      font-size: 28px;
+    }
+    .solution-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .solution-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 40px 28px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.35s ease;
+      position: relative;
+      border: 2px solid transparent;
+    }
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-light);
+    }
+    .pricing-card.popular {
+      background: linear-gradient(180deg, var(--bg-card) 0%, #E8E0F0 100%);
+      border: 2px solid var(--accent);
+      transform: scale(1.06);
+      z-index: 2;
+      box-shadow: 0 12px 48px rgba(155,89,182,0.28);
+    }
+    .pricing-card.popular:hover {
+      transform: scale(1.06) translateY(-8px);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: var(--white);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(155,89,182,0.3);
+      white-space: nowrap;
+    }
+    .pricing-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pricing-card .desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    .price-old {
+      font-size: 18px;
+      color: #999;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .price {
+      font-size: 46px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .price-save {
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      text-align: left;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 2.2;
+    }
+    .pricing-card ul li::before {
+      content: '✓ ';
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .bonus-section {
+      background: linear-gradient(135deg, #D8D0E0, var(--accent-light));
+      padding: 90px 24px;
+    }
+    .bonus-card {
+      background: var(--bg-card);
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-align: left;
+      transition: all 0.3s;
+    }
+    .bonus-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.14);
+    }
+    .bonus-emoji { font-size: 48px; flex-shrink: 0; }
+    .bonus-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .bonus-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+    .step {
+      text-align: center;
+    }
+    .step-num {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: var(--white);
+      font-size: 24px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(155,89,182,0.3);
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: var(--text-muted); font-size: 15px; line-height: 1.5; }
+    .reviews-section { background: #D8D0E0; }
+    .review-card {
+      background: var(--bg-card);
+      padding: 32px 28px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: all 0.3s;
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .stars { color: #FFB800; font-size: 18px; margin-bottom: 14px; }
+    .review-text {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-author img {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent-light);
+    }
+    .review-author strong { font-size: 15px; }
+    .review-author span { font-size: 13px; color: #999; }
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 22px 26px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .faq-question:hover { background: rgba(155,89,182,0.04); }
+    .faq-question span { transition: transform 0.3s; color: var(--accent); font-size: 14px; }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 26px;
+    }
+    .faq-answer.open {
+      max-height: 300px;
+      padding-bottom: 22px;
+    }
+    .faq-answer p {
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .footer-cta {
+      background: linear-gradient(135deg, #3A3A42, #4A4A52);
+      color: var(--white);
+      padding: 100px 24px;
+      text-align: center;
+    }
+    .footer-cta h2 {
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .footer-cta > p {
+      font-size: 18px;
+      opacity: 0.85;
+      margin-bottom: 40px;
+    }
+    .contact-form {
+      background: rgba(255,255,255,0.08);
+      padding: 36px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .form-group {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .form-group input,
+    .form-group select {
+      padding: 15px 18px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      font-size: 15px;
+      outline: none;
+      font-family: inherit;
+      transition: background 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      background: rgba(255,255,255,0.18);
+    }
+    .form-group input::placeholder { color: rgba(255,255,255,0.5); }
+    .form-group select option { color: #333; }
+    .form-group select { cursor: pointer; appearance: none; }
+    .contacts {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      opacity: 0.8;
+      font-size: 15px;
+    }
+    .contacts span { display: flex; align-items: center; gap: 6px; }
+    footer {
+      background: #2A2A30;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+    }
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 40px; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-card.popular { grid-column: span 2; transform: scale(1); }
+      .pricing-card.popular:hover { transform: translateY(-8px); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-logo img { height: 42px; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero h1 { font-size: 32px; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-image img { height: 320px; }
+      .section { padding: 70px 24px; }
+      .section-title { font-size: 28px; }
+      .agitate-wrap { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.popular { grid-column: span 1; transform: scale(1); }
+      .pricing-card.popular:hover { transform: translateY(-8px); }
+      .bonus-card { flex-direction: column; text-align: center; }
+      .footer-cta h2 { font-size: 28px; }
+      .contact-form { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-logo">
+      <img src="logo.png" alt="LINUM SOEST">
+    </div>
+    <div class="nav-links">
+      <a href="#about">Über die Methode</a>
+      <a href="#pricing">Preise</a>
+      <a href="#bonuses">Boni</a>
+      <a href="#contact">Termin buchen</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <section class="hero">
+    <div class="animate delay-1">
+      <div class="hero-badge">Brasilianische Lymphdrainage-Massage</div>
+      <h1>Befreien Sie sich von Schwellungen, Cellulite und Müdigkeit in nur&nbsp;1&nbsp;Sitzung</h1>
+      <p>Einzigartige brasilianische Technik der tiefen Lymphdrainage. Ohne Injektionen, ohne Chemie – nur natürliche Wiederherstellung Ihres Körpers.</p>
+      <a href="#pricing" class="btn" data-track="hero-cta">Massage terminieren</a>
+    </div>
+    <div class="hero-image animate delay-2">
+      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop" alt="Brasilianische Lymphdrainage-Massage">
+    </div>
+  </section>
+
+  <section id="about" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title animate">Erkennen Sie sich wieder?</h2>
+      <p class="section-subtitle animate delay-1">Diese Körpersignale deuten auf Lymphstau hin</p>
+      <div class="cards-grid">
+        <div class="card animate delay-1">
+          <div class="card-icon">😫</div>
+          <h3>Geschwollenes Gesicht am Morgen</h3>
+          <p>Morgens ist das Gesicht geschwollen, als hätten Sie nicht geschlafen – auch nach 8 Stunden Schlaf</p>
+        </div>
+        <div class="card animate delay-2">
+          <div class="card-icon">👖</div>
+          <h3>Schwere Beine</h3>
+          <p>Abends sind die Beine müde und passen nicht mehr in die Lieblingsjeans – Flüssigkeitsstau</p>
+        </div>
+        <div class="card animate delay-3">
+          <div class="card-icon">🍊</div>
+          <h3>Hartnäckige Cellulite</h3>
+          <p>Orangenhaut verschwindet nicht, trotz Diäten, Sport und Wickelbehandlungen</p>
+        </div>
+        <div class="card animate delay-3">
+          <div class="card-icon">😴</div>
+          <h3>Chronische Müdigkeit</h3>
+          <p>Ständige Schwere im Körper, Schläfrigkeit und verminderter Lebensmut</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title animate" style="color: var(--accent-dark);">Was passiert, wenn Sie nicht handeln?</h2>
+      <p class="section-subtitle animate delay-1">Lymphstau verschwindet nicht von allein. Mit der Zeit verschlimmert sich das Problem nur:</p>
+      <div class="agitate-wrap">
+        <div class="animate delay-1">
+          <div class="agitate-item">
+            <strong>Haut verliert Spannkraft</strong>
+            <p>Der Teint verschlechtert sich, Tränensäcke und dunkle Ringe erscheinen</p>
+          </div>
+          <div class="agitate-item">
+            <strong>Die Volumen nehmen zu</strong>
+            <p>Überschüssige Flüssigkeit sammelt sich an, die Figur verliert Konturen und Attraktivität</p>
+          </div>
+          <div class="agitate-item">
+            <strong>Immunsystem schwächt sich</strong>
+            <p>Toxine stauen sich im Gewebe, der Körper wird krankheitsanfällig</p>
+          </div>
+          <div class="agitate-item">
+            <strong>Müdigkeit wird zur Norm</strong>
+            <p>Die Energie reicht nicht einmal für alltägliche Dinge</p>
+          </div>
+        </div>
+        <div class="agitate-image animate delay-2">
+          <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&h=500&fit=crop" alt="Folgen von Lymphstau">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-gradient">
+    <div class="container">
+      <h2 class="section-title animate">Brasilianische Lymphdrainage – eine Methode, die funktioniert</h2>
+      <p class="section-subtitle animate delay-1">Anerkannte Technik, die den natürlichen Reinigungsprozess des Körpers aktiviert</p>
+      <div class="cards-grid" style="margin-bottom: 40px;">
+        <div class="solution-card animate delay-1">
+          <div class="solution-icon">📏</div>
+          <h3>Sofortiges Ergebnis</h3>
+          <p>Minus 1–2 cm im Umfang bereits nach der ersten Sitzung. Sie sehen die Veränderung sofort im Spiegel.</p>
+        </div>
+        <div class="solution-card animate delay-2">
+          <div class="solution-icon">💧</div>
+          <h3>Tiefe Entgiftung</h3>
+          <p>Leitet bis zu 2 Liter stagnierende Flüssigkeit ab. Der Körper reinigt sich auf Zellebene.</p>
+        </div>
+        <div class="solution-card animate delay-3">
+          <div class="solution-icon">🌿</div>
+          <h3>100% Sicherheit</h3>
+          <p>Natürliche Methode ohne Chemie, Injektionen und Nebenwirkungen. Nur Arbeit mit Ihrem Körper.</p>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <a href="#pricing" class="btn" data-track="solution-cta">Massage terminieren</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <h2 class="section-title animate">Wählen Sie Ihr Paket</h2>
+      <p class="section-subtitle animate delay-1">Flexible Optionen für jede Aufgabe und jedes Budget</p>
+      <div class="pricing-grid">
+        <div class="pricing-card animate delay-1">
+          <h3>Kennenlernen</h3>
+          <p class="desc">1 Sitzung Lymphdrainage-Massage</p>
+          <div class="price">89 €</div>
+          <ul>
+            <li>Vollwertige Sitzung 60 Minuten</li>
+            <li>Therapeutenberatung</li>
+            <li>Ernährungsempfehlungen</li>
+          </ul>
+          <button class="btn btn-block" data-track="pricing-1" onclick="scrollToForm('1')">Massage terminieren</button>
+        </div>
+        <div class="pricing-card popular animate delay-2">
+          <div class="popular-badge">Am beliebtesten</div>
+          <h3>Transformationskurs</h3>
+          <p class="desc">2 Sitzungen Lymphdrainage-Massage</p>
+          <div class="price-old">178 €</div>
+          <div class="price">160 €</div>
+          <div class="price-save">Sie sparen 18 €</div>
+          <ul>
+            <li>2 vollwertige Sitzungen à 60 Min</li>
+            <li>Persönlicher Drainageplan</li>
+            <li>Rabatt auf die 3. Sitzung</li>
+          </ul>
+          <button class="btn btn-block btn-lg" data-track="pricing-2" onclick="scrollToForm('2')">Massage terminieren</button>
+        </div>
+        <div class="pricing-card animate delay-3">
+          <h3>Komplette Verwandlung</h3>
+          <p class="desc">3 Sitzungen Lymphdrainage-Massage</p>
+          <div class="price-old">267 €</div>
+          <div class="price">234 €</div>
+          <div class="price-save">Sie sparen 33 €</div>
+          <ul>
+            <li>3 Sitzungen à 60 Minuten</li>
+            <li>Individuelles Programm</li>
+            <li>Festigende Pflege</li>
+            <li>24/7 Betreuung</li>
+          </ul>
+          <button class="btn btn-block" data-track="pricing-3" onclick="scrollToForm('3')">Massage terminieren</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bonuses" class="bonus-section">
+    <div class="container">
+      <h2 class="section-title animate">Buchen Sie heute – erhalten Sie Geschenke</h2>
+      <p class="section-subtitle animate delay-1">Wert der Materialien – 47 €, aber für Bucher – <strong style="color: var(--accent-dark);">kostenlos</strong></p>
+      <div class="cards-grid" style="margin-bottom: 40px;">
+        <div class="bonus-card animate delay-1">
+          <div class="bonus-emoji">🧊</div>
+          <div>
+            <h3>PDF-Guide „5 Selbstmassage-Techniken"</h3>
+            <p>Schritt-für-Schritt-Techniken zur Schwellungsreduktion zu Hause. Funktionieren in 10 Minuten pro Tag.</p>
+          </div>
+        </div>
+        <div class="bonus-card animate delay-2">
+          <div class="bonus-emoji">📖</div>
+          <div>
+            <h3>Buch „Komplette Lymphdrainage-Anleitung"</h3>
+            <p>Detailliertes Handbuch zur Technik, Indikationen, Pflege und Prävention.</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <a href="#contact" class="btn" data-track="bonuses-cta">Boni sichern & terminieren</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title animate">Wie läuft die Behandlung ab</h2>
+      <div class="cards-grid" style="margin-top: 60px;">
+        <div class="step animate delay-1">
+          <div class="step-num">1</div>
+          <h3>Beratung</h3>
+          <p>Zustandsdiagnose, Bestimmung von Stauzonen, Behandlungsplanung</p>
+        </div>
+        <div class="step animate delay-2">
+          <div class="step-num">2</div>
+          <h3>Vorbereitung</h3>
+          <p>Hautreinigung, Auftragen professionellen Massageöls für komfortables Gleiten</p>
+        </div>
+        <div class="step animate delay-3">
+          <div class="step-num">3</div>
+          <h3>Drainagetechnik</h3>
+          <p>Brasilianische Methode der tiefen Beeinflussung der Lymphknoten</p>
+        </div>
+        <div class="step animate delay-3">
+          <div class="step-num">4</div>
+          <h3>Ergebnis</h3>
+          <p>Messungen, Vorher/Nachher-Fotos, persönliche Empfehlungen zur Ergebnissicherung</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reviews-section">
+    <div class="container">
+      <h2 class="section-title animate">Was Kunden sagen</h2>
+      <div class="cards-grid" style="margin-top: 60px;">
+        <div class="review-card animate delay-1">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">„Nach der ersten Sitzung wurden meine Beine so leicht wie nach dem Urlaub! Die Schwellungen verschwanden über Nacht. Jetzt gehe ich jede Woche hin."</p>
+          <div class="review-author">
+            <img src="https://i.pravatar.cc/150?img=5" alt="Anna K.">
+            <div>
+              <strong>Anna K.</strong>
+              <div>3 Sitzungen</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card animate delay-2">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">„Ich hätte nicht geglaubt, dass man Cellulite ohne Operationen entfernen kann. Nach dem Kurs mit 3 Sitzungen wurde die Haut glatt, Taillenumfang −3 cm!"</p>
+          <div class="review-author">
+            <img src="https://i.pravatar.cc/150?img=9" alt="Maria D.">
+            <div>
+              <strong>Maria D.</strong>
+              <div>Kurs 3 Sitzungen</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card animate delay-3">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">„Professioneller Ansatz, gemütliche Atmosphäre, Ergebnis sofort sichtbar. Die PDF-Boni sind eine angenehme Überraschung!"</p>
+          <div class="review-author">
+            <img src="https://i.pravatar.cc/150?img=3" alt="Elena W.">
+            <div>
+              <strong>Elena W.</strong>
+              <div>2 Sitzungen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 800px;">
+      <h2 class="section-title animate">Häufige Fragen</h2>
+      <div style="margin-top: 48px;">
+        <div class="faq-item animate delay-1">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Tut Lymphdrainage weh?
+            <span>▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Nein, die Behandlung ist angenehm. Die brasilianische Technik besteht aus sanften, fließenden Bewegungen in Richtung des Lymphflusses. Sie können in Problemzonen einen leichten Druck spüren, aber Schmerzen bleiben aus.</p>
+          </div>
+        </div>
+        <div class="faq-item animate delay-1">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Wie schnell ist das Ergebnis sichtbar?
+            <span>▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Das Ergebnis ist sofort nach der ersten Sitzung sichtbar: Schweregefühl in den Beinen verschwindet, Schwellungen reduzieren sich, die Haut wirkt straffer. Für ein nachhaltiges Ergebnis empfehlen wir einen Kurs von 3–5 Behandlungen.</p>
+          </div>
+        </div>
+        <div class="faq-item animate delay-2">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Wie viele Sitzungen sind nötig?
+            <span>▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Für eine einmalige Reinigung und Müdigkeitsreduktion reicht 1 Sitzung. Für Figurkorrektur und Cellulitebekämpfung – ein Kurs von 3–5 Sitzungen 1–2 Mal pro Woche.</p>
+          </div>
+        </div>
+        <div class="faq-item animate delay-2">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Gibt es Kontraindikationen?
+            <span>▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Die Behandlung wird bei akuten Entzündungsprozessen, Thrombose, Krebs, Schwangerschaft im ersten Trimester und Fieber nicht durchgeführt. Vor der Sitzung führen wir eine ausführliche Beratung durch.</p>
+          </div>
+        </div>
+        <div class="faq-item animate delay-3">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Was soll ich zur Behandlung anziehen?
+            <span>▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Bequeme Unterwäsche oder Badeanzug wird empfohlen. Im Kabinett gibt es Einweg-Slips und Handtücher. Nach der Behandlung sollten Sie lockere Kleidung aus Naturfasern tragen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="footer-cta">
+    <div class="container" style="max-width: 600px;">
+      <h2 class="animate">Bereit, Leichtigkeit zu spüren?</h2>
+      <p class="animate delay-1">Buchen Sie jetzt Ihre brasilianische Lymphdrainage</p>
+      <form class="contact-form animate delay-2" onsubmit="event.preventDefault(); alert('Vielen Dank! Wir werden uns in Kürze mit Ihnen in Verbindung setzen.');">
+        <div class="form-group">
+          <input type="text" placeholder="Ihr Name" required>
+          <input type="tel" placeholder="Telefon / WhatsApp" required>
+          <select id="packageSelect">
+            <option value="" disabled selected>Paket wählen</option>
+            <option value="1">1 Sitzung – 89 €</option>
+            <option value="2">2 Sitzungen – 160 €</option>
+            <option value="3">3 Sitzungen – 234 €</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-block btn-lg pulse-btn" data-track="final-cta">Massage terminieren</button>
+      </form>
+      <div class="contacts animate delay-3">
+        <span>📞 +49 123 456 789</span>
+        <span>💬 WhatsApp</span>
+        <span>📍 Berlin, Deutschland</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 LINUM SOEST. Brasilianische Lymphdrainage-Massage. Alle Rechte vorbehalten.
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const arrow = btn.querySelector('span');
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-question span').forEach(s => s.style.transform = 'rotate(0deg)');
+      if (!isOpen) {
+        answer.classList.add('open');
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    }
+    function scrollToForm(pkg) {
+      document.getElementById('packageSelect').value = pkg;
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+      links.style.position = 'absolute';
+      links.style.top = '60px';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = 'rgba(229,229,234,0.98)';
+      links.style.flexDirection = 'column';
+      links.style.padding = '20px';
+      links.style.gap = '16px';
+      links.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+    }
+  </script>
+</body>
+</html>
