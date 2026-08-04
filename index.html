@@ -42,10 +42,24 @@
       align-items: center;
       box-shadow: 0 2px 20px rgba(0,0,0,0.06);
     }
+    /* ИЗМЕНЕНИЕ: Стили для контейнера логотипа и текста */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
     .nav-logo img {
       height: 52px;
       width: auto;
       display: block;
+    }
+    .nav-logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
     }
     .nav-links {
       display: flex;
@@ -607,19 +621,21 @@
       .contact-form { padding: 24px; }
     }
   </style>
-<base target="_blank">
 </head>
 <body>
 
   <nav class="nav">
-    <div class="nav-logo">
-      <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=200&h=52&fit=crop" alt="LINUM SOEST">
-    </div>
+    <!-- ИЗМЕНЕНИЕ: Добавлен текст "Linum Soest" рядом с логотипом -->
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="LINUM SOEST">
+      <span class="nav-logo-text">Linum Soest</span>
+    </a>
     <div class="nav-links">
       <a href="#about">Über die Methode</a>
       <a href="#pricing">Preise</a>
       <a href="#bonuses">Boni</a>
-      <a href="#contact">Termin buchen</a>
+      <!-- ИЗМЕНЕНИЕ: Ссылка в меню также обновлена -->
+      <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank">Termin vereinbaren</a>
     </div>
     <button class="nav-toggle" onclick="toggleMenu()">☰</button>
   </nav>
@@ -629,7 +645,8 @@
       <div class="hero-badge">Brasilianische Lymphdrainage-Massage</div>
       <h1>Befreien Sie sich von Schwellungen, Cellulite und Müdigkeit in nur&nbsp;1&nbsp;Sitzung</h1>
       <p>Einzigartige brasilianische Technik der tiefen Lymphdrainage. Ohne Injektionen, ohne Chemie – nur natürliche Wiederherstellung Ihres Körpers.</p>
-      <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn" data-track="hero-cta" target="_blank">Massage terminieren</a>
+      <!-- ИЗМЕНЕНИЕ: Текст кнопки и ссылка -->
+      <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn" data-track="hero-cta">Termin vereinbaren</a>
     </div>
     <div class="hero-image animate delay-2">
       <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop" alt="Brasilianische Lymphdrainage-Massage">
@@ -717,7 +734,8 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn" data-track="solution-cta" target="_blank">Massage terminieren</a>
+        <!-- ИЗМЕНЕНИЕ: Текст кнопки и ссылка -->
+        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn" data-track="solution-cta">Termin vereinbaren</a>
       </div>
     </div>
   </section>
@@ -736,7 +754,8 @@
             <li>Therapeutenberatung</li>
             <li>Ernährungsempfehlungen</li>
           </ul>
-          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block" data-track="pricing-1" target="_blank">Massage terminieren</a>
+          <!-- ИЗМЕНЕНИЕ: Кнопка стала ссылкой -->
+          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-block" data-track="pricing-1">Termin vereinbaren</a>
         </div>
         <div class="pricing-card popular animate delay-2">
           <div class="popular-badge">Am beliebtesten</div>
@@ -750,7 +769,8 @@
             <li>Persönlicher Drainageplan</li>
             <li>Rabatt auf die 3. Sitzung</li>
           </ul>
-          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block btn-lg" data-track="pricing-2" target="_blank">Massage terminieren</a>
+          <!-- ИЗМЕНЕНИЕ: Кнопка стала ссылкой -->
+          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-block btn-lg" data-track="pricing-2">Termin vereinbaren</a>
         </div>
         <div class="pricing-card animate delay-3">
           <h3>Komplette Verwandlung</h3>
@@ -764,7 +784,8 @@
             <li>Festigende Pflege</li>
             <li>24/7 Betreuung</li>
           </ul>
-          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block" data-track="pricing-3" target="_blank">Massage terminieren</a>
+          <!-- ИЗМЕНЕНИЕ: Кнопка стала ссылкой -->
+          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-block" data-track="pricing-3">Termin vereinbaren</a>
         </div>
       </div>
     </div>
@@ -791,7 +812,8 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn" data-track="bonuses-cta" target="_blank">Boni sichern & terminieren</a>
+        <!-- ИЗМЕНЕНИЕ: Текст кнопки и ссылка -->
+        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn" data-track="bonuses-cta">Termin vereinbaren</a>
       </div>
     </div>
   </section>
@@ -922,19 +944,27 @@
     <div class="container" style="max-width: 600px;">
       <h2 class="animate">Bereit, Leichtigkeit zu spüren?</h2>
       <p class="animate delay-1">Buchen Sie jetzt Ihre brasilianische Lymphdrainage</p>
-      <div class="contact-form animate delay-2">
+      
+      <!-- Форма оставлена, но кнопка внутри неё также изменена на ссылку для соответствия требованию -->
+      <form class="contact-form animate delay-2" onsubmit="event.preventDefault(); window.location.href='https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa';">
         <div class="form-group">
-          <input type="text" placeholder="Ihr Name" readonly>
-          <input type="tel" placeholder="Telefon / WhatsApp" readonly>
-          <select disabled>
-            <option>Paket wählen</option>
+          <input type="text" placeholder="Ihr Name">
+          <input type="tel" placeholder="Telefon / WhatsApp">
+          <select id="packageSelect">
+            <option value="" disabled selected>Paket wählen</option>
+            <option value="1">1 Sitzung – 89 €</option>
+            <option value="2">2 Sitzungen – 160 €</option>
+            <option value="3">3 Sitzungen – 234 €</option>
           </select>
         </div>
-        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" class="btn btn-block btn-lg pulse-btn" data-track="final-cta" target="_blank">Massage terminieren</a>
-      </div>
+        <!-- ИЗМЕНЕНИЕ: Кнопка формы теперь перенаправляет на Beautinda -->
+        <button type="submit" class="btn btn-block btn-lg pulse-btn" data-track="final-cta">Termin vereinbaren</button>
+      </form>
+
+      <!-- ИЗМЕНЕНИЕ: Обновленные контакты -->
       <div class="contacts animate delay-3">
+        <span>📞 +49(0)160-1751061</span>
         <span>✉️ info@linum-soest.de</span>
-        <span>📞 +49 (0)160 - 175 10 61</span>
         <span>📍 Werkstr. 8, 59494 Soest</span>
       </div>
     </div>
@@ -955,6 +985,12 @@
         answer.classList.add('open');
         arrow.style.transform = 'rotate(180deg)';
       }
+    }
+    // Функция scrollToForm больше не используется для навигации, 
+    // но оставлена для совместимости, если где-то вызывается
+    function scrollToForm(pkg) {
+      document.getElementById('packageSelect').value = pkg;
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     }
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
