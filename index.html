@@ -1,1024 +1,801 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LINUM SOEST — Brasilianische Lymphdrainage-Massage</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #E5E5EA;
-      --bg-dark: #D8D8DE;
-      --bg-card: #FFFFFF;
-      --accent: #9B59B6;
-      --accent-dark: #8E44AD;
-      --accent-light: #E8D5F2;
-      --text: #2C3E50;
-      --text-muted: #5a6a7a;
-      --white: #ffffff;
-      --shadow: 0 4px 24px rgba(0,0,0,0.08);
-      --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
-      --shadow-accent: 0 8px 32px rgba(155,89,182,0.35);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      background: rgba(229,229,234,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(155,89,182,0.15);
-      padding: 10px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-    }
-    /* ИЗМЕНЕНИЕ: Стили для контейнера логотипа и текста */
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text);
-    }
-    .nav-logo img {
-      height: 52px;
-      width: auto;
-      display: block;
-    }
-    .nav-logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text);
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .nav-links a {
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.3s;
-      position: relative;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 2px;
-      background: var(--accent);
-      transition: width 0.3s;
-      border-radius: 2px;
-    }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--accent);
-    }
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      color: var(--white);
-      border: none;
-      padding: 16px 36px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: var(--shadow-accent);
-      transition: all 0.3s ease;
-      text-decoration: none;
-      text-align: center;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(155,89,182,0.5);
-    }
-    .btn-block { width: 100%; }
-    .btn-lg { padding: 18px 40px; font-size: 17px; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(155,89,182,0.4); }
-      50% { transform: scale(1.03); box-shadow: 0 12px 40px rgba(155,89,182,0.6); }
-    }
-    .animate {
-      opacity: 0;
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .pulse-btn { animation: pulse 2s infinite; }
-    .hero {
-      padding: 140px 24px 100px;
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--accent-light), #D8C4E0);
-      color: var(--accent-dark);
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 24px;
-      letter-spacing: 0.5px;
-    }
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      letter-spacing: -1.5px;
-    }
-    .hero p {
-      font-size: 18px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 32px;
-      max-width: 480px;
-    }
-    .hero-image {
-      position: relative;
-    }
-    .hero-image::before {
-      content: '';
-      position: absolute;
-      top: -30px; right: -30px;
-      width: 320px; height: 320px;
-      background: linear-gradient(135deg, rgba(155,89,182,0.18), rgba(142,68,173,0.08));
-      border-radius: 50%;
-      filter: blur(50px);
-      z-index: 0;
-    }
-    .hero-image img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
-      object-fit: cover;
-      height: 450px;
-    }
-    .section { padding: 100px 24px; }
-    .section-alt { background: var(--bg-dark); }
-    .section-gradient {
-      background: linear-gradient(180deg, var(--bg) 0%, #D8D0E0 100%);
-    }
-    .section-title {
-      text-align: center;
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .section-subtitle {
-      text-align: center;
-      color: var(--text-muted);
-      margin-bottom: 60px;
-      font-size: 17px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .card {
-      background: var(--bg-card);
-      padding: 36px 28px;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      transition: all 0.35s ease;
-      border: 1px solid transparent;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--accent-light);
-    }
-    .card-icon {
-      font-size: 42px;
-      margin-bottom: 16px;
-    }
-    .card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .card p {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .agitate-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .agitate-item {
-      padding: 22px 26px;
-      background: var(--bg-card);
-      border-radius: 16px;
-      border-left: 4px solid var(--accent);
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      transition: all 0.3s;
-    }
-    .agitate-item:hover {
-      transform: translateX(6px);
-      box-shadow: var(--shadow-hover);
-    }
-    .agitate-item strong {
-      color: var(--accent);
-      font-size: 16px;
-    }
-    .agitate-item p {
-      margin: 6px 0 0;
-      color: var(--text-muted);
-      font-size: 15px;
-    }
-    .agitate-image {
-      position: relative;
-    }
-    .agitate-image::before {
-      content: '';
-      position: absolute;
-      inset: -15px;
-      background: linear-gradient(135deg, rgba(155,89,182,0.22), rgba(142,68,173,0.1));
-      border-radius: 28px;
-      filter: blur(25px);
-    }
-    .agitate-image img {
-      position: relative;
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
-    }
-    .solution-card {
-      background: var(--bg-card);
-      padding: 40px 32px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(155,89,182,0.12);
-      text-align: center;
-      transition: all 0.35s ease;
-    }
-    .solution-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(155,89,182,0.22);
-    }
-    .solution-icon {
-      width: 68px; height: 68px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      color: var(--white);
-      font-size: 28px;
-    }
-    .solution-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .solution-card p {
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      align-items: start;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .pricing-card {
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 40px 28px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      transition: all 0.35s ease;
-      position: relative;
-      border: 2px solid transparent;
-    }
-    .pricing-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--accent-light);
-    }
-    .pricing-card.popular {
-      background: linear-gradient(180deg, var(--bg-card) 0%, #E8E0F0 100%);
-      border: 2px solid var(--accent);
-      transform: scale(1.06);
-      z-index: 2;
-      box-shadow: 0 12px 48px rgba(155,89,182,0.28);
-    }
-    .pricing-card.popular:hover {
-      transform: scale(1.06) translateY(-8px);
-    }
-    .popular-badge {
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      color: var(--white);
-      padding: 6px 20px;
-      border-radius: 50px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(155,89,182,0.3);
-      white-space: nowrap;
-    }
-    .pricing-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .pricing-card .desc {
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 16px;
-    }
-    .price-old {
-      font-size: 18px;
-      color: #999;
-      text-decoration: line-through;
-      margin-bottom: 4px;
-    }
-    .price {
-      font-size: 46px;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-    .price-save {
-      background: var(--accent-light);
-      color: var(--accent-dark);
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-    .pricing-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 28px;
-      text-align: left;
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 2.2;
-    }
-    .pricing-card ul li::before {
-      content: '✓ ';
-      color: var(--accent);
-      font-weight: 700;
-    }
-    .bonus-section {
-      background: linear-gradient(135deg, #D8D0E0, var(--accent-light));
-      padding: 90px 24px;
-    }
-    .bonus-card {
-      background: var(--bg-card);
-      padding: 32px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      text-align: left;
-      transition: all 0.3s;
-    }
-    .bonus-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.14);
-    }
-    .bonus-emoji { font-size: 48px; flex-shrink: 0; }
-    .bonus-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .bonus-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
-    .step {
-      text-align: center;
-    }
-    .step-num {
-      width: 72px; height: 72px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      color: var(--white);
-      font-size: 24px;
-      font-weight: 700;
-      box-shadow: 0 8px 24px rgba(155,89,182,0.3);
-    }
-    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .step p { color: var(--text-muted); font-size: 15px; line-height: 1.5; }
-    .reviews-section { background: #D8D0E0; }
-    .review-card {
-      background: var(--bg-card);
-      padding: 32px 28px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      transition: all 0.3s;
-    }
-    .review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-    .stars { color: #FFB800; font-size: 18px; margin-bottom: 14px; }
-    .review-text {
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-    .review-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .review-author img {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--accent-light);
-    }
-    .review-author strong { font-size: 15px; }
-    .review-author span { font-size: 13px; color: #999; }
-    .faq-item {
-      background: var(--bg-card);
-      border-radius: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      overflow: hidden;
-    }
-    .faq-question {
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 22px 26px;
-      text-align: left;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.3s;
-    }
-    .faq-question:hover { background: rgba(155,89,182,0.04); }
-    .faq-question span { transition: transform 0.3s; color: var(--accent); font-size: 14px; }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-      padding: 0 26px;
-    }
-    .faq-answer.open {
-      max-height: 300px;
-      padding-bottom: 22px;
-    }
-    .faq-answer p {
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-    .footer-cta {
-      background: linear-gradient(135deg, #3A3A42, #4A4A52);
-      color: var(--white);
-      padding: 100px 24px;
-      text-align: center;
-    }
-    .footer-cta h2 {
-      font-size: 38px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .footer-cta > p {
-      font-size: 18px;
-      opacity: 0.85;
-      margin-bottom: 40px;
-    }
-    .contact-form {
-      background: rgba(255,255,255,0.08);
-      padding: 36px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      max-width: 520px;
-      margin: 0 auto 36px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .form-group {
-      display: grid;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .form-group input,
-    .form-group select {
-      padding: 15px 18px;
-      border-radius: 12px;
-      border: none;
-      background: rgba(255,255,255,0.12);
-      color: var(--white);
-      font-size: 15px;
-      outline: none;
-      font-family: inherit;
-      transition: background 0.3s;
-    }
-    .form-group input:focus,
-    .form-group select:focus {
-      background: rgba(255,255,255,0.18);
-    }
-    .form-group input::placeholder { color: rgba(255,255,255,0.5); }
-    .form-group select option { color: #333; }
-    .form-group select { cursor: pointer; appearance: none; }
-    .contacts {
-      display: flex;
-      justify-content: center;
-      gap: 36px;
-      flex-wrap: wrap;
-      opacity: 0.8;
-      font-size: 15px;
-    }
-    .contacts span { display: flex; align-items: center; gap: 6px; }
-    footer {
-      background: #2A2A30;
-      color: rgba(255,255,255,0.45);
-      text-align: center;
-      padding: 28px 24px;
-      font-size: 13px;
-    }
-    @media (max-width: 1024px) {
-      .hero h1 { font-size: 40px; }
-      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-      .pricing-card.popular { grid-column: span 2; transform: scale(1); }
-      .pricing-card.popular:hover { transform: translateY(-8px); }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .nav-toggle { display: block; }
-      .nav-logo img { height: 42px; }
-      .hero {
-        grid-template-columns: 1fr;
-        padding-top: 100px;
-        text-align: center;
-        gap: 40px;
-      }
-      .hero h1 { font-size: 32px; }
-      .hero p { margin-left: auto; margin-right: auto; }
-      .hero-image img { height: 320px; }
-      .section { padding: 70px 24px; }
-      .section-title { font-size: 28px; }
-      .agitate-wrap { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .pricing-card.popular { grid-column: span 1; transform: scale(1); }
-      .pricing-card.popular:hover { transform: translateY(-8px); }
-      .bonus-card { flex-direction: column; text-align: center; }
-      .footer-cta h2 { font-size: 28px; }
-      .contact-form { padding: 24px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linum Soest — Kosmetik & Massage in Soest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --primary-light: #34495e;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(139, 92, 246, 0.35);
+            --bg-page: #f0eef5;
+            --bg-surface: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.72);
+            --text-dark: #1a1a2e;
+            --text-light: #6b6b7b;
+            --text-muted: #9ca3af;
+            --gradient-hero: linear-gradient(135deg, #ede8f5 0%, #d5dce4 40%, #e8e0f7 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 50%, #c4b5fd 100%);
+            --gradient-dark: linear-gradient(135deg, #2c3e50 0%, #4a5568 100%);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+            --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.2);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--bg-page);
+            overflow-x: hidden;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px var(--accent-glow); } 50% { box-shadow: 0 0 40px var(--accent-glow), 0 0 60px rgba(139,92,246,0.15); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* HEADER */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0; transition: var(--transition); }
+        header.scrolled { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(1.8); -webkit-backdrop-filter: blur(20px) saturate(1.8); box-shadow: var(--shadow-sm); border-bottom: 1px solid rgba(139,92,246,0.08); }
+        header .container { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -0.03em; text-decoration: none; }
+        .logo img { height: 44px; width: auto; display: block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .logo span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--primary); font-weight: 500; font-size: 0.95rem; padding: 8px 16px; border-radius: 100px; transition: var(--transition); position: relative; }
+        .nav-links a:hover { color: var(--accent); background: rgba(139,92,246,0.08); }
+        .nav-links a.active { background: var(--gradient-accent); color: white; box-shadow: 0 4px 15px rgba(139,92,246,0.3); }
+        .nav-cta { background: var(--gradient-accent) !important; color: white !important; padding: 10px 24px !important; font-weight: 600 !important; box-shadow: 0 4px 15px rgba(139,92,246,0.3); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139,92,246,0.4); }
+        .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 1001; }
+        .burger span { display: block; width: 26px; height: 2.5px; background: var(--primary); border-radius: 3px; transition: var(--transition); }
+        .burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .burger.open span:nth-child(2) { opacity: 0; }
+        .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* HERO */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; background: var(--gradient-hero); overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%); pointer-events: none; animation: float 8s ease-in-out infinite; }
+        .hero::after { content: ''; position: absolute; bottom: -10%; left: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%); pointer-events: none; animation: float 10s ease-in-out infinite reverse; }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; animation: fadeInUp 1s ease; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(139,92,246,0.15); border-radius: 100px; font-size: 0.9rem; font-weight: 500; color: var(--accent); margin-bottom: 28px; animation: fadeInDown 0.8s ease 0.2s both; box-shadow: var(--shadow-sm); }
+        .hero-badge-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: pulse-glow 2s infinite; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 400; color: var(--primary); margin-bottom: 20px; line-height: 1.15; letter-spacing: -0.02em; animation: fadeInUp 0.8s ease 0.3s both; }
+        .hero h1 strong { font-weight: 600; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; }
+        .hero h1 strong::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 3px; background: var(--gradient-accent); border-radius: 2px; opacity: 0.4; }
+        .hero .subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-light); max-width: 620px; margin: 0 auto 32px; line-height: 1.7; animation: fadeInUp 0.8s ease 0.4s both; }
+        .hero-address { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border-radius: 100px; font-size: 0.95rem; color: var(--text-light); box-shadow: var(--shadow-sm); border: 1px solid rgba(139,92,246,0.1); animation: fadeInUp 0.8s ease 0.5s both; margin-bottom: 32px; }
+        .hero-address svg { width: 18px; height: 18px; color: var(--accent); }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.6s both; }
+        .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.8rem; animation: fadeIn 1s ease 1.5s both; cursor: pointer; transition: var(--transition); }
+        .scroll-indicator:hover { color: var(--accent); }
+        .scroll-indicator svg { animation: float 2s ease-in-out infinite; }
+
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 36px; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: var(--transition); border: none; cursor: pointer; position: relative; overflow: hidden; }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.6s; }
+        .btn:hover::before { left: 100%; }
+        .btn-primary { background: var(--gradient-accent); color: white; box-shadow: 0 6px 25px rgba(139,92,246,0.35); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(139,92,246,0.45); }
+        .btn-secondary { background: rgba(255,255,255,0.9); color: var(--primary); border: 2px solid rgba(139,92,246,0.2); backdrop-filter: blur(10px); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .btn-beautinda { background: linear-gradient(135deg, #FF7A00 0%, #E06E00 50%, #FF9500 100%); background-size: 200% 200%; color: #FFFFFF !important; box-shadow: 0 6px 25px rgba(255,122,0,0.35); animation: gradientShift 4s ease infinite; }
+        .btn-beautinda:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255,122,0,0.5); }
+
+        /* SECTIONS */
+        section { padding: 100px 0; position: relative; }
+        .section-header { text-align: center; max-width: 640px; margin: 0 auto 60px; }
+        .section-label { display: inline-block; padding: 6px 18px; background: rgba(139,92,246,0.08); color: var(--accent); border-radius: 100px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; color: var(--primary); margin-bottom: 16px; line-height: 1.2; }
+        .section-title span { font-weight: 600; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-desc { color: var(--text-light); font-size: 1.05rem; line-height: 1.7; }
+
+        /* ABOUT */
+        .about-section { background: linear-gradient(180deg, var(--bg-page) 0%, #e8e4f0 100%); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image-wrapper { position: relative; }
+        .about-image { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; z-index: 2; }
+        .about-image img { width: 100%; height: 420px; object-fit: cover; display: block; transition: var(--transition); }
+        .about-image:hover img { transform: scale(1.03); }
+        .about-image-decoration { position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--accent); border-radius: var(--radius-lg); z-index: 1; opacity: 0.3; }
+        .about-image-decoration-2 { position: absolute; bottom: -15px; left: -15px; width: 80px; height: 80px; background: var(--gradient-accent); border-radius: var(--radius-md); z-index: 3; opacity: 0.6; }
+        .about-text h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400; color: var(--primary); margin-bottom: 20px; line-height: 1.3; }
+        .about-text h3 span { font-weight: 600; background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .about-text p { color: var(--text-light); margin-bottom: 18px; font-size: 1.05rem; line-height: 1.8; }
+        .about-text strong { color: var(--primary); font-weight: 600; }
+        .brands-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+        .brand-tag { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--bg-surface); border-radius: 100px; font-weight: 600; font-size: 0.9rem; color: var(--primary); box-shadow: var(--shadow-sm); border: 1px solid rgba(139,92,246,0.1); transition: var(--transition); }
+        .brand-tag:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--accent-light); }
+        .brand-tag .icon { font-size: 1.1rem; }
+
+        /* SERVICES */
+        .services-section { background: var(--bg-surface); position: relative; }
+        .services-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 200px; background: linear-gradient(180deg, #e8e4f0 0%, transparent 100%); pointer-events: none; }
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .service-card { background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid rgba(139,92,246,0.1); border-radius: var(--radius-md); padding: 32px 24px; transition: var(--transition); position: relative; overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-accent); transform: scaleX(0); transition: transform 0.4s ease; }
+        .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg), var(--shadow-glow); border-color: rgba(139,92,246,0.2); background: rgba(255,255,255,0.9); }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-icon { width: 52px; height: 52px; border-radius: var(--radius-sm); background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(167,139,250,0.1) 100%); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 20px; border: 1px solid rgba(139,92,246,0.15); transition: var(--transition); }
+        .service-card:hover .service-icon { background: var(--gradient-accent); transform: scale(1.1) rotate(-5deg); filter: brightness(1.2); }
+        .service-card h4 { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(139,92,246,0.1); }
+        .service-card ul { list-style: none; padding: 0; }
+        .service-card ul li { padding: 5px 0 5px 22px; position: relative; color: var(--text-light); font-size: 0.9rem; line-height: 1.5; transition: var(--transition); }
+        .service-card ul li::before { content: ""; position: absolute; left: 0; top: 12px; width: 8px; height: 8px; background: var(--gradient-accent); border-radius: 50%; opacity: 0.6; transition: var(--transition); }
+        .service-card:hover ul li::before { opacity: 1; transform: scale(1.3); }
+        .service-card:hover ul li { color: var(--text-dark); padding-left: 26px; }
+
+        /* CTA */
+        .cta-section { background: var(--gradient-dark); position: relative; overflow: hidden; }
+        .cta-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%); pointer-events: none; }
+        .cta-section::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%); pointer-events: none; }
+        .cta-content { position: relative; z-index: 2; text-align: center; max-width: 600px; margin: 0 auto; }
+        .cta-content .section-title { color: white; }
+        .cta-content .section-title span { background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .cta-content .section-desc { color: rgba(255,255,255,0.75); margin-bottom: 36px; }
+
+        /* VIDEO SECTION */
+        .video-section { background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-page) 100%); text-align: center; }
+        .video-card { max-width: 700px; margin: 0 auto; background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid rgba(139,92,246,0.1); border-radius: var(--radius-lg); padding: 48px 40px; box-shadow: var(--shadow-md); transition: var(--transition); }
+        .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+        /* ===== VIDEO PREVIEW / POSTER ===== */
+        .video-preview {
+            width: 100%;
+            height: 320px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            background: linear-gradient(135deg, #e8e0f7 0%, #d5dce4 50%, #ede8f5 100%);
+        }
+        .video-preview:hover { transform: scale(1.02); }
+
+        .video-poster-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        .video-poster-bg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-poster-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(44,62,80,0.55) 0%, rgba(139,92,246,0.45) 100%);
+            z-index: 2;
+            transition: var(--transition);
+        }
+        .video-preview:hover .video-poster-overlay {
+            background: linear-gradient(135deg, rgba(44,62,80,0.45) 0%, rgba(139,92,246,0.35) 100%);
+        }
+
+        .video-poster-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .video-poster-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .video-poster-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        .video-poster-title strong {
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff 0%, #e0d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .play-button {
+            width: 80px; height: 80px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(139,92,246,0.5), 0 0 60px rgba(139,92,246,0.3);
+            transition: var(--transition);
+            position: relative;
+            animation: pulse-glow 3s infinite;
+        }
+        .play-button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 40px rgba(139,92,246,0.6), 0 0 80px rgba(139,92,246,0.4);
+        }
+        .play-button svg { width: 28px; height: 28px; fill: white; margin-left: 4px; }
+
+        .video-poster-hint {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .video-poster-hint svg { width: 16px; height: 16px; opacity: 0.7; }
+
+        /* FOOTER */
+        footer { background: var(--primary); color: rgba(255,255,255,0.7); padding: 60px 0 30px; position: relative; overflow: hidden; }
+        footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-accent); }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 48px; margin-bottom: 40px; }
+        .footer-brand .logo-footer { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: white; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .footer-brand .logo-footer span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .footer-brand p { font-size: 0.95rem; line-height: 1.7; max-width: 320px; }
+        .footer-heading { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: white; margin-bottom: 20px; }
+        .footer-links-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+        .footer-links-list a { color: rgba(255,255,255,0.7); text-decoration: none; transition: var(--transition); font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; }
+        .footer-links-list a:hover { color: var(--accent-light); padding-left: 4px; }
+        .footer-contact-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+        .footer-contact-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; line-height: 1.5; }
+        .footer-contact-list li svg { width: 18px; height: 18px; color: var(--accent-light); flex-shrink: 0; margin-top: 2px; }
+        .footer-contact-list a { color: rgba(255,255,255,0.7); text-decoration: none; transition: var(--transition); }
+        .footer-contact-list a:hover { color: var(--accent-light); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+        .footer-bottom strong { color: rgba(255,255,255,0.8); }
+
+        /* BANNER CAROUSEL */
+        .banner-carousel { position: fixed; right: 24px; bottom: 24px; width: 360px; max-width: calc(100vw - 48px); z-index: 99999; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.25); background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); border: 1px solid rgba(139,92,246,0.15); animation: slideInRight 0.6s ease 1s both; }
+        .banner-slide { display: none; width: 100%; position: relative; }
+        .banner-slide.active { display: block; animation: scaleIn 0.5s ease; }
+        .banner-slide img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .banner-content { padding: 20px; text-align: center; }
+        .banner-content h3 { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+        .banner-content p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 14px; line-height: 1.5; }
+        .banner-btn { display: inline-block; padding: 10px 24px; background: var(--gradient-accent); color: white; text-decoration: none; border-radius: 100px; font-weight: 600; font-size: 0.85rem; transition: var(--transition); box-shadow: 0 4px 15px rgba(139,92,246,0.3); }
+        .banner-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139,92,246,0.4); }
+        .banner-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.4); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; font-weight: bold; z-index: 5; border: none; transition: var(--transition); backdrop-filter: blur(4px); }
+        .banner-close:hover { background: rgba(0,0,0,0.6); transform: rotate(90deg); }
+        .banner-dots { display: flex; justify-content: center; gap: 8px; padding: 12px; background: rgba(0,0,0,0.03); }
+        .banner-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.15); cursor: pointer; transition: var(--transition); border: none; padding: 0; }
+        .banner-dot.active { background: var(--accent); width: 24px; border-radius: 4px; }
+        .banner-dot:hover { background: var(--accent-light); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) {
+            .burger { display: flex; }
+            .nav-links { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(20px); flex-direction: column; justify-content: center; padding: 80px 24px; gap: 8px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); text-align: center; z-index: 999; }
+            .nav-links.open { transform: translateX(0); }
+            .nav-links a { font-size: 1.2rem; padding: 12px 24px; }
+            .nav-cta { margin-top: 16px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-image img { height: 300px; }
+            .about-image-decoration, .about-image-decoration-2 { display: none; }
+            .services-grid { grid-template-columns: 1fr; }
+            .service-card { max-width: 100%; }
+            .hero { min-height: auto; padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .banner-carousel { right: 12px; left: 12px; bottom: 12px; width: auto; }
+            section { padding: 60px 0; }
+            .video-card { padding: 28px 20px; }
+            .video-preview { height: 260px; }
+            .video-poster-title { font-size: 1.3rem; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.7rem; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
+            .section-title { font-size: 1.6rem; }
+            .about-text h3 { font-size: 1.4rem; }
+            .brand-tag { font-size: 0.8rem; padding: 8px 14px; }
+            .video-preview { height: 220px; }
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-page); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    </style>
+<base target="_blank">
 </head>
 <body>
 
-  <nav class="nav">
-    <!-- ИЗМЕНЕНИЕ: Добавлен текст "Linum Soest" рядом с логотипом -->
-    <a href="#" class="nav-logo">
-      <img src="logo.png" alt="LINUM SOEST">
-      <span class="nav-logo-text">Linum Soest</span>
-    </a>
-    <div class="nav-links">
-      <a href="#about">Über die Methode</a>
-      <a href="#pricing">Preise</a>
-      <a href="#bonuses">Boni</a>
-      <!-- ИЗМЕНЕНИЕ: Ссылка в меню также обновлена -->
-      <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank">Termin vereinbaren</a>
-    </div>
-    <button class="nav-toggle" onclick="toggleMenu()">☰</button>
-  </nav>
+    <header id="header">
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="logo.png" alt="Linum Soest Logo">
+                <span>Linum</span> Soest
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Startseite</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#services">Leistungen</a></li>
+                <li><a href="news-aktionen.html">News & Aktionen</a></li>
+                <li><a href="#video">Video-Tour</a></li>
+                <li><a href="#cta" class="nav-cta">Termin buchen</a></li>
+            </ul>
+            <button class="burger" id="burger" aria-label="Menü">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
 
-  <section class="hero">
-    <div class="animate delay-1">
-      <div class="hero-badge">Brasilianische Lymphdrainage-Massage</div>
-      <h1>Befreien Sie sich von Schwellungen, Cellulite und Müdigkeit in nur&nbsp;1&nbsp;Sitzung</h1>
-      <p>Einzigartige brasilianische Technik der tiefen Lymphdrainage. Ohne Injektionen, ohne Chemie – nur natürliche Wiederherstellung Ihres Körpers.</p>
-      <!-- ИЗМЕНЕНИЕ: Текст кнопки и ссылка -->
-      <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn" data-track="hero-cta">Termin vereinbaren</a>
-    </div>
-    <div class="hero-image animate delay-2">
-      <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop" alt="Brasilianische Lymphdrainage-Massage">
-    </div>
-  </section>
-
-  <section id="about" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title animate">Erkennen Sie sich wieder?</h2>
-      <p class="section-subtitle animate delay-1">Diese Körpersignale deuten auf Lymphstau hin</p>
-      <div class="cards-grid">
-        <div class="card animate delay-1">
-          <div class="card-icon">😫</div>
-          <h3>Geschwollenes Gesicht am Morgen</h3>
-          <p>Morgens ist das Gesicht geschwollen, als hätten Sie nicht geschlafen – auch nach 8 Stunden Schlaf</p>
-        </div>
-        <div class="card animate delay-2">
-          <div class="card-icon">👖</div>
-          <h3>Schwere Beine</h3>
-          <p>Abends sind die Beine müde und passen nicht mehr in die Lieblingsjeans – Flüssigkeitsstau</p>
-        </div>
-        <div class="card animate delay-3">
-          <div class="card-icon">🍊</div>
-          <h3>Hartnäckige Cellulite</h3>
-          <p>Orangenhaut verschwindet nicht, trotz Diäten, Sport und Wickelbehandlungen</p>
-        </div>
-        <div class="card animate delay-3">
-          <div class="card-icon">😴</div>
-          <h3>Chronische Müdigkeit</h3>
-          <p>Ständige Schwere im Körper, Schläfrigkeit und verminderter Lebensmut</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title animate" style="color: var(--accent-dark);">Was passiert, wenn Sie nicht handeln?</h2>
-      <p class="section-subtitle animate delay-1">Lymphstau verschwindet nicht von allein. Mit der Zeit verschlimmert sich das Problem nur:</p>
-      <div class="agitate-wrap">
-        <div class="animate delay-1">
-          <div class="agitate-item">
-            <strong>Haut verliert Spannkraft</strong>
-            <p>Der Teint verschlechtert sich, Tränensäcke und dunkle Ringe erscheinen</p>
-          </div>
-          <div class="agitate-item">
-            <strong>Die Volumen nehmen zu</strong>
-            <p>Überschüssige Flüssigkeit sammelt sich an, die Figur verliert Konturen und Attraktivität</p>
-          </div>
-          <div class="agitate-item">
-            <strong>Immunsystem schwächt sich</strong>
-            <p>Toxine stauen sich im Gewebe, der Körper wird krankheitsanfällig</p>
-          </div>
-          <div class="agitate-item">
-            <strong>Müdigkeit wird zur Norm</strong>
-            <p>Die Energie reicht nicht einmal für alltägliche Dinge</p>
-          </div>
-        </div>
-        <div class="agitate-image animate delay-2">
-          <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&h=500&fit=crop" alt="Folgen von Lymphstau">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-gradient">
-    <div class="container">
-      <h2 class="section-title animate">Brasilianische Lymphdrainage – eine Methode, die funktioniert</h2>
-      <p class="section-subtitle animate delay-1">Anerkannte Technik, die den natürlichen Reinigungsprozess des Körpers aktiviert</p>
-      <div class="cards-grid" style="margin-bottom: 40px;">
-        <div class="solution-card animate delay-1">
-          <div class="solution-icon">📏</div>
-          <h3>Sofortiges Ergebnis</h3>
-          <p>Minus 1–2 cm im Umfang bereits nach der ersten Sitzung. Sie sehen die Veränderung sofort im Spiegel.</p>
-        </div>
-        <div class="solution-card animate delay-2">
-          <div class="solution-icon">💧</div>
-          <h3>Tiefe Entgiftung</h3>
-          <p>Leitet bis zu 2 Liter stagnierende Flüssigkeit ab. Der Körper reinigt sich auf Zellebene.</p>
-        </div>
-        <div class="solution-card animate delay-3">
-          <div class="solution-icon">🌿</div>
-          <h3>100% Sicherheit</h3>
-          <p>Natürliche Methode ohne Chemie, Injektionen und Nebenwirkungen. Nur Arbeit mit Ihrem Körper.</p>
-        </div>
-      </div>
-      <div style="text-align: center;">
-        <!-- ИЗМЕНЕНИЕ: Текст кнопки и ссылка -->
-        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn" data-track="solution-cta">Termin vereinbaren</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="pricing" class="section">
-    <div class="container">
-      <h2 class="section-title animate">Wählen Sie Ihr Paket</h2>
-      <p class="section-subtitle animate delay-1">Flexible Optionen für jede Aufgabe und jedes Budget</p>
-      <div class="pricing-grid">
-        <div class="pricing-card animate delay-1">
-          <h3>Kennenlernen</h3>
-          <p class="desc">1 Sitzung Lymphdrainage-Massage</p>
-          <div class="price">89 €</div>
-          <ul>
-            <li>Vollwertige Sitzung 60 Minuten</li>
-            <li>Therapeutenberatung</li>
-            <li>Ernährungsempfehlungen</li>
-          </ul>
-          <!-- ИЗМЕНЕНИЕ: Кнопка стала ссылкой -->
-          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-block" data-track="pricing-1">Termin vereinbaren</a>
-        </div>
-        <div class="pricing-card popular animate delay-2">
-          <div class="popular-badge">Am beliebtesten</div>
-          <h3>Transformationskurs</h3>
-          <p class="desc">2 Sitzungen Lymphdrainage-Massage</p>
-          <div class="price-old">178 €</div>
-          <div class="price">160 €</div>
-          <div class="price-save">Sie sparen 18 €</div>
-          <ul>
-            <li>2 vollwertige Sitzungen à 60 Min</li>
-            <li>Persönlicher Drainageplan</li>
-            <li>Rabatt auf die 3. Sitzung</li>
-          </ul>
-          <!-- ИЗМЕНЕНИЕ: Кнопка стала ссылкой -->
-          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-block btn-lg" data-track="pricing-2">Termin vereinbaren</a>
-        </div>
-        <div class="pricing-card animate delay-3">
-          <h3>Komplette Verwandlung</h3>
-          <p class="desc">3 Sitzungen Lymphdrainage-Massage</p>
-          <div class="price-old">267 €</div>
-          <div class="price">234 €</div>
-          <div class="price-save">Sie sparen 33 €</div>
-          <ul>
-            <li>3 Sitzungen à 60 Minuten</li>
-            <li>Individuelles Programm</li>
-            <li>Festigende Pflege</li>
-            <li>24/7 Betreuung</li>
-          </ul>
-          <!-- ИЗМЕНЕНИЕ: Кнопка стала ссылкой -->
-          <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-block" data-track="pricing-3">Termin vereinbaren</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="bonuses" class="bonus-section">
-    <div class="container">
-      <h2 class="section-title animate">Buchen Sie heute – erhalten Sie Geschenke</h2>
-      <p class="section-subtitle animate delay-1">Wert der Materialien – 47 €, aber für Bucher – <strong style="color: var(--accent-dark);">kostenlos</strong></p>
-      <div class="cards-grid" style="margin-bottom: 40px;">
-        <div class="bonus-card animate delay-1">
-          <div class="bonus-emoji">🧊</div>
-          <div>
-            <h3>PDF-Guide „5 Selbstmassage-Techniken"</h3>
-            <p>Schritt-für-Schritt-Techniken zur Schwellungsreduktion zu Hause. Funktionieren in 10 Minuten pro Tag.</p>
-          </div>
-        </div>
-        <div class="bonus-card animate delay-2">
-          <div class="bonus-emoji">📖</div>
-          <div>
-            <h3>Buch „Komplette Lymphdrainage-Anleitung"</h3>
-            <p>Detailliertes Handbuch zur Technik, Indikationen, Pflege und Prävention.</p>
-          </div>
-        </div>
-      </div>
-      <div style="text-align: center;">
-        <!-- ИЗМЕНЕНИЕ: Текст кнопки и ссылка -->
-        <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn" data-track="bonuses-cta">Termin vereinbaren</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title animate">Wie läuft die Behandlung ab</h2>
-      <div class="cards-grid" style="margin-top: 60px;">
-        <div class="step animate delay-1">
-          <div class="step-num">1</div>
-          <h3>Beratung</h3>
-          <p>Zustandsdiagnose, Bestimmung von Stauzonen, Behandlungsplanung</p>
-        </div>
-        <div class="step animate delay-2">
-          <div class="step-num">2</div>
-          <h3>Vorbereitung</h3>
-          <p>Hautreinigung, Auftragen professionellen Massageöls für komfortables Gleiten</p>
-        </div>
-        <div class="step animate delay-3">
-          <div class="step-num">3</div>
-          <h3>Drainagetechnik</h3>
-          <p>Brasilianische Methode der tiefen Beeinflussung der Lymphknoten</p>
-        </div>
-        <div class="step animate delay-3">
-          <div class="step-num">4</div>
-          <h3>Ergebnis</h3>
-          <p>Messungen, Vorher/Nachher-Fotos, persönliche Empfehlungen zur Ergebnissicherung</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section reviews-section">
-    <div class="container">
-      <h2 class="section-title animate">Was Kunden sagen</h2>
-      <div class="cards-grid" style="margin-top: 60px;">
-        <div class="review-card animate delay-1">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">„Nach der ersten Sitzung wurden meine Beine so leicht wie nach dem Urlaub! Die Schwellungen verschwanden über Nacht. Jetzt gehe ich jede Woche hin."</p>
-          <div class="review-author">
-            <img src="https://i.pravatar.cc/150?img=5" alt="Anna K.">
-            <div>
-              <strong>Anna K.</strong>
-              <div>3 Sitzungen</div>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Kosmetik & Massage in Soest
             </div>
-          </div>
-        </div>
-        <div class="review-card animate delay-2">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">„Ich hätte nicht geglaubt, dass man Cellulite ohne Operationen entfernen kann. Nach dem Kurs mit 3 Sitzungen wurde die Haut glatt, Taillenumfang −3 cm!"</p>
-          <div class="review-author">
-            <img src="https://i.pravatar.cc/150?img=9" alt="Maria D.">
-            <div>
-              <strong>Maria D.</strong>
-              <div>Kurs 3 Sitzungen</div>
+            <h1>Willkommen bei <strong>Linum Soest</strong></h1>
+            <p class="subtitle">
+                Massage, Permanent Make-up und kosmetische Behandlungen im Herzen von Soest.
+                Ihre Schönheit und Ihr Wohlbefinden sind unsere Leidenschaft.
+            </p>
+            <div class="hero-address">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                Werkstraße 8, 59494 Soest
             </div>
-          </div>
-        </div>
-        <div class="review-card animate delay-3">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">„Professioneller Ansatz, gemütliche Atmosphäre, Ergebnis sofort sichtbar. Die PDF-Boni sind eine angenehme Überraschung!"</p>
-          <div class="review-author">
-            <img src="https://i.pravatar.cc/150?img=3" alt="Elena W.">
-            <div>
-              <strong>Elena W.</strong>
-              <div>2 Sitzungen</div>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">Unsere Leistungen</a>
+                <a href="#about" class="btn btn-secondary">Mehr erfahren</a>
             </div>
-          </div>
         </div>
-      </div>
+        <a href="#about" class="scroll-indicator">
+            <span>Nach unten scrollen</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </a>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Über das Studio</div>
+                <h2 class="section-title">Lernen Sie <span>Irina Böhme</span> kennen</h2>
+                <p class="section-desc">
+                    Professioneller Ansatz, Premium-Kosmetik und individuelle Pflege für jeden Kunden.
+                </p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text animate-on-scroll delay-1">
+                    <h3>Irina Böhme – Ihre Expertin für <span>Schönheit</span></h3>
+                    <p>
+                        In meinem Kosmetikstudio erwartet Sie eine entspannende Atmosphäre,
+                        professionelle Behandlungen und viel Platz für Ihren Komfort.
+                        Ich arbeite ausschließlich mit Premium-Produkten von <strong>Chris Farrell Cosmetics</strong> und <strong>Utsukusy Cosmetics</strong>.
+                    </p>
+                    <p>
+                        Ich kombiniere traditionelle Techniken mit modernsten Technologien, um einen individuellen Pflegeplan für jeden Hauttyp und ästhetische Anforderungen zu erstellen.
+                    </p>
+                    <div class="brands-row">
+                        <span class="brand-tag"><span class="icon">🏆</span> Chris Farrell</span>
+                        <span class="brand-tag"><span class="icon">🌸</span> Utsukusy</span>
+                        <span class="brand-tag"><span class="icon">💎</span> Hyaluron Filler</span>
+                    </div>
+                </div>
+                <div class="about-image-wrapper animate-on-scroll delay-2">
+                    <div class="about-image-decoration"></div>
+                    <div class="about-image">
+                        <img src="Studiy.png" alt="Studio-Interieur Linum Soest">
+                    </div>
+                    <div class="about-image-decoration-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Leistungen</div>
+                <h2 class="section-title">Meine <span>Leistungen</span></h2>
+                <p class="section-desc">
+                    Ein breites Spektrum an Behandlungen: von klassischer Pflege bis zu modernen injektions- und apparativen Methoden.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll delay-1">
+                    <div class="service-icon">💆‍♀️</div>
+                    <h4>Kosmetik</h4>
+                    <ul>
+                        <li>Schülerbehandlung</li>
+                        <li>Klassische Gesichtsbehandlung</li>
+                        <li>Gesichtsbehandlung Premium</li>
+                        <li>Gesichtsbehandlung VIP</li>
+                        <li>Hydrafacial Behandlung</li>
+                        <li>Aqua Beauty</li>
+                        <li>IRI Gold Scalping</li>
+                        <li>Microneedling</li>
+                        <li>Biomicroneedling</li>
+                        <li>Microdermabrasion</li>
+                        <li>Algen Schälkur</li>
+                        <li>Collagen Fadenlifting</li>
+                        <li>Aqua Facial + Algenpeeling</li>
+                    </ul>
+                </div>
+                <div class="service-card animate-on-scroll delay-2">
+                    <div class="service-icon">✒️</div>
+                    <h4>Permanent Make-up</h4>
+                    <ul>
+                        <li>Powder Brows (Augenbrauen)</li>
+                        <li>Lippenpigmentierung</li>
+                        <li>Wimpernkranzverdichtung</li>
+                        <li>Lidstrich mit Schattierung</li>
+                        <li>Entfernung von Tattoos</li>
+                        <li>Entfernung von PMU</li>
+                    </ul>
+                </div>
+                <div class="service-card animate-on-scroll delay-3">
+                    <div class="service-icon">💉</div>
+                    <h4>Hyaluron Filler</h4>
+                    <ul>
+                        <li>Volumenaufbau der Lippen</li>
+                        <li>Nadellose Faltenreduktion</li>
+                    </ul>
+                    <h4 style="margin-top: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(139,92,246,0.1); margin-bottom: 16px;">👣 Fußpflege</h4>
+                    <ul>
+                        <li>Kosmetische Fußpflege</li>
+                        <li>Fußreflexzonenmassage</li>
+                    </ul>
+                </div>
+                <div class="service-card animate-on-scroll delay-4">
+                    <div class="service-icon">🧖‍♀️</div>
+                    <h4>Massagen</h4>
+                    <ul>
+                        <li>Gesichts- und Körpermodellierung</li>
+                        <li>Instrumentale Lipoplastik</li>
+                        <li>Manuelle lymphatische Massage</li>
+                        <li>Body Wrapping</li>
+                        <li>Myofasziale Massage</li>
+                        <li>Honig Massage</li>
+                        <li>Japanische Gesichtsmassage</li>
+                        <li>Buccal Massage</li>
+                        <li>Gesunde Füße</li>
+                        <li>Fußreflexzonenmassage</li>
+                        <li>Fuß Massage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <div class="cta-content animate-on-scroll">
+                <div class="section-label" style="background: rgba(255,255,255,0.1); color: #c4b5fd;">Terminbuchung</div>
+                <h2 class="section-title">Online <span>Termin buchen</span></h2>
+                <p class="section-desc">
+                    Wählen Sie Ihren Wunschtermin und buchen Sie die Behandlung über die Beautinda-Plattform. Schnell, bequem und ohne Anruf.
+                </p>
+                <a href="https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa" target="_blank" class="btn btn-beautinda">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Termin bei Beautinda
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section" id="video">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">Virtuelle Tour</div>
+                <h2 class="section-title">Video-Tour durch das <span>Studio</span></h2>
+                <p class="section-desc">
+                    Sehen Sie, wie mein Studio von innen aussieht. Gemütlichkeit, Professionalität und Liebe zum Detail.
+                </p>
+            </div>
+            <div class="video-card animate-on-scroll delay-1">
+                <a href="https://linum-soest.de/video/studio-video-2025-07.mp4" target="_blank" class="video-preview">
+                    <!-- SVG Illustration Background -->
+                    <div class="video-poster-bg">
+                        <svg viewBox="0 0 700 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="roomGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e8e0f7"/>
+                                    <stop offset="50%" style="stop-color:#d5dce4"/>
+                                    <stop offset="100%" style="stop-color:#ede8f5"/>
+                                </linearGradient>
+                                <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#f5f3fa"/>
+                                    <stop offset="100%" style="stop-color:#e8e4f0"/>
+                                </linearGradient>
+                                <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#8b5cf6"/>
+                                    <stop offset="100%" style="stop-color:#a78bfa"/>
+                                </linearGradient>
+                                <filter id="softShadow">
+                                    <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(139,92,246,0.15)"/>
+                                </filter>
+                            </defs>
+                            <!-- Room background -->
+                            <rect width="700" height="320" fill="url(#roomGrad)"/>
+                            <!-- Back wall -->
+                            <rect x="50" y="40" width="600" height="240" rx="12" fill="url(#wallGrad)" filter="url(#softShadow)"/>
+                            <!-- Floor -->
+                            <rect x="50" y="260" width="600" height="20" rx="4" fill="#ddd8e8"/>
+                            <!-- Window -->
+                            <rect x="80" y="70" width="120" height="100" rx="8" fill="#e0f0ff" opacity="0.6"/>
+                            <rect x="80" y="70" width="120" height="100" rx="8" fill="none" stroke="#c4b5fd" stroke-width="3"/>
+                            <line x1="140" y1="70" x2="140" y2="170" stroke="#c4b5fd" stroke-width="2"/>
+                            <line x1="80" y1="120" x2="200" y2="120" stroke="#c4b5fd" stroke-width="2"/>
+                            <!-- Plant -->
+                            <ellipse cx="100" cy="245" rx="18" ry="8" fill="#c8e6c9"/>
+                            <path d="M100 245 Q90 210 85 200 Q95 205 100 220 Q105 205 115 200 Q110 210 100 245" fill="#81c784"/>
+                            <path d="M100 245 Q95 220 92 215 Q98 218 100 230 Q102 218 108 215 Q105 220 100 245" fill="#66bb6a"/>
+                            <!-- Treatment bed -->
+                            <rect x="280" y="180" width="200" height="70" rx="12" fill="#f8f6fc" filter="url(#softShadow)"/>
+                            <rect x="280" y="180" width="200" height="20" rx="12" fill="#ede8f5"/>
+                            <rect x="290" y="205" width="180" height="35" rx="8" fill="#fff" opacity="0.8"/>
+                            <!-- Towel on bed -->
+                            <rect x="310" y="195" width="80" height="45" rx="6" fill="#e8e0f7" opacity="0.7"/>
+                            <!-- Cabinet / shelves -->
+                            <rect x="520" y="80" width="100" height="160" rx="8" fill="#f8f6fc" filter="url(#softShadow)"/>
+                            <rect x="520" y="80" width="100" height="8" rx="4" fill="#ede8f5"/>
+                            <line x1="520" y1="120" x2="620" y2="120" stroke="#e0d4ff" stroke-width="2"/>
+                            <line x1="520" y1="160" x2="620" y2="160" stroke="#e0d4ff" stroke-width="2"/>
+                            <line x1="520" y1="200" x2="620" y2="200" stroke="#e0d4ff" stroke-width="2"/>
+                            <!-- Bottles on shelf -->
+                            <rect x="535" y="100" width="12" height="18" rx="3" fill="#c4b5fd" opacity="0.8"/>
+                            <rect x="555" y="95" width="10" height="23" rx="3" fill="#a78bfa" opacity="0.7"/>
+                            <rect x="575" y="105" width="14" height="13" rx="3" fill="#8b5cf6" opacity="0.6"/>
+                            <rect x="535" y="140" width="10" height="18" rx="3" fill="#a78bfa" opacity="0.7"/>
+                            <rect x="555" y="138" width="12" height="20" rx="3" fill="#c4b5fd" opacity="0.8"/>
+                            <!-- Mirror -->
+                            <ellipse cx="380" cy="110" rx="50" ry="55" fill="url(#wallGrad)" stroke="#ddd8e8" stroke-width="4" filter="url(#softShadow)"/>
+                            <ellipse cx="380" cy="110" rx="42" ry="47" fill="#f0eef5" opacity="0.5"/>
+                            <!-- Light fixture -->
+                            <rect x="360" y="25" width="40" height="12" rx="6" fill="#ddd8e8"/>
+                            <ellipse cx="380" cy="42" rx="30" ry="10" fill="rgba(255,255,255,0.6)" filter="url(#softShadow)"/>
+                            <!-- Decorative circles -->
+                            <circle cx="650" cy="60" r="25" fill="url(#accentGrad)" opacity="0.15"/>
+                            <circle cx="60" cy="280" r="35" fill="url(#accentGrad)" opacity="0.1"/>
+                            <circle cx="620" cy="280" r="20" fill="url(#accentGrad)" opacity="0.12"/>
+                        </svg>
+                    </div>
+                    <!-- Dark overlay -->
+                    <div class="video-poster-overlay"></div>
+                    <!-- Content -->
+                    <div class="video-poster-content">
+                        <div class="video-poster-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            Video-Tour
+                        </div>
+                        <h3 class="video-poster-title">Entdecken Sie unser <strong>Studio</strong></h3>
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <div class="video-poster-hint">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            Dauer: ca. 2 Min.
+                        </div>
+                    </div>
+                </a>
+                <a href="https://linum-soest.de/video/studio-video-2025-07.mp4" target="_blank" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    Video-Tour ansehen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-footer"><span>Linum</span> Soest</div>
+                    <p>Professionelle Kosmetik, Massage und Permanent Make-up im Herzen von Soest. Ihre Schönheit ist unsere Mission.</p>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-heading">Navigation</div>
+                    <ul class="footer-links-list">
+                        <li><a href="#home">Startseite</a></li>
+                        <li><a href="#about">Über mich</a></li>
+                        <li><a href="#services">Leistungen</a></li>
+                        <li><a href="news-aktionen.html">News & Aktionen</a></li>
+                        <li><a href="#video">Video-Tour</a></li>
+                        <li><a href="#cta">Termin buchen</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <div class="footer-heading">Kontakt</div>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>Werkstr. 8, 59494 Soest</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                            <a href="tel:+491601751061">+49 (0)160 - 175 10 61</a>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <a href="mailto:info@linum-soest.de">info@linum-soest.de</a>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span>Mo–Sa: 10:00 – 20:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 <strong>Linum Soest</strong> — Irina Böhme. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="banner-carousel" id="bannerCarousel">
+        <div class="banner-slide active" data-index="0">
+            <button class="banner-close" data-close>✕</button>
+            <img src="https://aleks5661661-web.github.io/Aquapeeling/Gemini_Generated_Image_ioc7z0ioc7z0ioc7.jpg" alt="Aquapeeling">
+            <div class="banner-content">
+                <h3>✨ Aquapeeling</h3>
+                <p>Moderne Hautpflege für ein frisches und strahlendes Hautbild.</p>
+                <a href="https://aleks5661661-web.github.io/Aquapeeling/" target="_blank" class="banner-btn">Registrieren</a>
+            </div>
+        </div>
+        <div class="banner-slide" data-index="1">
+            <button class="banner-close" data-close>✕</button>
+            <img src="https://brusik-luna-95.github.io/Kosmetik/foto_baner.png" alt="Kosmetik">
+            <div class="banner-content">
+                <h3>🌸 Kosmetik</h3>
+                <p>Entdecken Sie unsere exklusiven Kosmetikbehandlungen.</p>
+                <a href="https://brusik-luna-95.github.io/Kosmetik/" target="_blank" class="banner-btn">Mehr erfahren</a>
+            </div>
+        </div>
+        <div class="banner-slide" data-index="2">
+            <button class="banner-close" data-close>✕</button>
+            <img src="https://brusik-luna-95.github.io/Saurepelling_2026/banner_image.png" alt="Saurepelling">
+            <div class="banner-content">
+                <h3>💎 Saurepelling</h3>
+                <p>Professionelle Säurepeeling-Behandlungen für strahlende Haut.</p>
+                <a href="https://brusik-luna-95.github.io/Saurepelling_2026" target="_blank" class="banner-btn">Mehr erfahren</a>
+            </div>
+        </div>
+        <div class="banner-dots">
+            <button class="banner-dot active" data-index="0" aria-label="Slide 1"></button>
+            <button class="banner-dot" data-index="1" aria-label="Slide 2"></button>
+            <button class="banner-dot" data-index="2" aria-label="Slide 3"></button>
+        </div>
     </div>
-  </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 800px;">
-      <h2 class="section-title animate">Häufige Fragen</h2>
-      <div style="margin-top: 48px;">
-        <div class="faq-item animate delay-1">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Tut Lymphdrainage weh?
-            <span>▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Nein, die Behandlung ist angenehm. Die brasilianische Technik besteht aus sanften, fließenden Bewegungen in Richtung des Lymphflusses. Sie können in Problemzonen einen leichten Druck spüren, aber Schmerzen bleiben aus.</p>
-          </div>
-        </div>
-        <div class="faq-item animate delay-1">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Wie schnell ist das Ergebnis sichtbar?
-            <span>▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Das Ergebnis ist sofort nach der ersten Sitzung sichtbar: Schweregefühl in den Beinen verschwindet, Schwellungen reduzieren sich, die Haut wirkt straffer. Für ein nachhaltiges Ergebnis empfehlen wir einen Kurs von 3–5 Behandlungen.</p>
-          </div>
-        </div>
-        <div class="faq-item animate delay-2">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Wie viele Sitzungen sind nötig?
-            <span>▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Für eine einmalige Reinigung und Müdigkeitsreduktion reicht 1 Sitzung. Für Figurkorrektur und Cellulitebekämpfung – ein Kurs von 3–5 Sitzungen 1–2 Mal pro Woche.</p>
-          </div>
-        </div>
-        <div class="faq-item animate delay-2">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Gibt es Kontraindikationen?
-            <span>▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Die Behandlung wird bei akuten Entzündungsprozessen, Thrombose, Krebs, Schwangerschaft im ersten Trimester und Fieber nicht durchgeführt. Vor der Sitzung führen wir eine ausführliche Beratung durch.</p>
-          </div>
-        </div>
-        <div class="faq-item animate delay-3">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            Was soll ich zur Behandlung anziehen?
-            <span>▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Bequeme Unterwäsche oder Badeanzug wird empfohlen. Im Kabinett gibt es Einweg-Slips und Handtücher. Nach der Behandlung sollten Sie lockere Kleidung aus Naturfasern tragen.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+        burger.addEventListener('click', () => { navLinks.classList.toggle('open'); burger.classList.toggle('open'); });
+        document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('open'); burger.classList.remove('open'); }); });
 
-  <section id="contact" class="footer-cta">
-    <div class="container" style="max-width: 600px;">
-      <h2 class="animate">Bereit, Leichtigkeit zu spüren?</h2>
-      <p class="animate delay-1">Buchen Sie jetzt Ihre brasilianische Lymphdrainage</p>
-      
-      <!-- Форма оставлена, но кнопка внутри неё также изменена на ссылку для соответствия требованию -->
-      <form class="contact-form animate delay-2" onsubmit="event.preventDefault(); window.location.href='https://beautinda.de/salon/tGXyhCddrS7HMSqrSUGa';">
-        <div class="form-group">
-          <input type="text" placeholder="Ihr Name">
-          <input type="tel" placeholder="Telefon / WhatsApp">
-          <select id="packageSelect">
-            <option value="" disabled selected>Paket wählen</option>
-            <option value="1">1 Sitzung – 89 €</option>
-            <option value="2">2 Sitzungen – 160 €</option>
-            <option value="3">3 Sitzungen – 234 €</option>
-          </select>
-        </div>
-        <!-- ИЗМЕНЕНИЕ: Кнопка формы теперь перенаправляет на Beautinda -->
-        <button type="submit" class="btn btn-block btn-lg pulse-btn" data-track="final-cta">Termin vereinbaren</button>
-      </form>
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => { if (window.scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
 
-      <!-- ИЗМЕНЕНИЕ: Обновленные контакты -->
-      <div class="contacts animate delay-3">
-        <span>📞 +49(0)160-1751061</span>
-        <span>✉️ info@linum-soest.de</span>
-        <span>📍 Werkstr. 8, 59494 Soest</span>
-      </div>
-    </div>
-  </section>
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => { if (window.scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
+            navItems.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) link.classList.add('active'); });
+        });
 
-  <footer>
-    © 2026 LINUM SOEST. Brasilianische Lymphdrainage-Massage. Alle Rechte vorbehalten.
-  </footer>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const target = document.querySelector(href);
+                if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
+            });
+        });
 
-  <script>
-    function toggleFaq(btn) {
-      const answer = btn.nextElementSibling;
-      const arrow = btn.querySelector('span');
-      const isOpen = answer.classList.contains('open');
-      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-      document.querySelectorAll('.faq-question span').forEach(s => s.style.transform = 'rotate(0deg)');
-      if (!isOpen) {
-        answer.classList.add('open');
-        arrow.style.transform = 'rotate(180deg)';
-      }
-    }
-    // Функция scrollToForm больше не используется для навигации, 
-    // но оставлена для совместимости, если где-то вызывается
-    function scrollToForm(pkg) {
-      document.getElementById('packageSelect').value = pkg;
-      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.animate').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-      observer.observe(el);
-    });
-    function toggleMenu() {
-      const links = document.querySelector('.nav-links');
-      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-      links.style.position = 'absolute';
-      links.style.top = '60px';
-      links.style.left = '0';
-      links.style.right = '0';
-      links.style.background = 'rgba(229,229,234,0.98)';
-      links.style.flexDirection = 'column';
-      links.style.padding = '20px';
-      links.style.gap = '16px';
-      links.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-    }
-  </script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        (function() {
+            const slides = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.banner-dot');
+            const carousel = document.getElementById('bannerCarousel');
+            let currentIndex = 0, intervalId = null;
+            function goToSlide(index) { slides.forEach(s => s.classList.remove('active')); dots.forEach(d => d.classList.remove('active')); if (slides[index]) slides[index].classList.add('active'); if (dots[index]) dots[index].classList.add('active'); currentIndex = index; }
+            function nextSlide() { goToSlide((currentIndex + 1) % slides.length); }
+            function startAutoplay() { if (intervalId) clearInterval(intervalId); intervalId = setInterval(nextSlide, 5000); }
+            function stopAutoplay() { if (intervalId) { clearInterval(intervalId); intervalId = null; } }
+            dots.forEach(dot => { dot.addEventListener('click', function() { const i = parseInt(this.getAttribute('data-index'), 10); if (i !== currentIndex) { goToSlide(i); stopAutoplay(); startAutoplay(); } }); });
+            document.querySelectorAll('[data-close]').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const slide = this.closest('.banner-slide');
+                    if (slide) {
+                        const index = parseInt(slide.getAttribute('data-index'), 10);
+                        if (index === currentIndex) {
+                            let found = false;
+                            for (let i = 0; i < slides.length; i++) { const idx = (index + 1 + i) % slides.length; if (slides[idx].style.display !== 'none') { goToSlide(idx); found = true; break; } }
+                            if (!found) { carousel.style.display = 'none'; stopAutoplay(); }
+                        }
+                        slide.style.display = 'none';
+                        let allHidden = true; slides.forEach(s => { if (s.style.display !== 'none') allHidden = false; });
+                        if (allHidden) { carousel.style.display = 'none'; stopAutoplay(); }
+                    }
+                });
+            });
+            startAutoplay();
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+            carousel.addEventListener('touchstart', stopAutoplay);
+            carousel.addEventListener('touchend', startAutoplay);
+        })();
+    </script>
 </body>
 </html>
